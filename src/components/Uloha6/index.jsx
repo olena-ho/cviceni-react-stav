@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import './ukol.css'
 
 /*
@@ -10,11 +11,16 @@ Bonus: Nastav jednotlivým položkám ve výpisu `key`, aby vývojářské nást
   nezobrazovaly varování. Nápověda: Key musí být v seznamu unikátní. Použij název úkolu.
 */
 
+
 const Ukol = ({ nazev }) => {
+  const [isDone, setIsDone] = useState(false);
+
   return (
-    <li className="ukol">
+    <li className={`ukol ${isDone ? "ukol--splnen" : ""}`}>
       <span className="ukol__nazev">{nazev}</span>
-      <button className="ukol__akce">splnit</button>
+      { isDone ||
+        (<button className="ukol__akce" onClick={() => setIsDone(true)}>splnit</button>)
+      }
     </li>
   )
 }
@@ -22,5 +28,11 @@ const Ukol = ({ nazev }) => {
 export const Uloha6 = () => {
   const ukoly = ['Zamést', 'Pověsit prádlo', 'Umýt okna', 'Vynést koš']
 
-  return <ul>{ukoly}</ul>
+  return (
+    <ul>
+      {ukoly.map((ukol) => (
+      <Ukol nazev={ukol} key={ukol} />
+    ) )}
+    </ul>
+    )
 }
