@@ -18,7 +18,7 @@ const Ukol = ({ nazev }) => {
   return (
     <li className={`ukol ${isDone ? "ukol--splnen" : ""}`}>
       <span className="ukol__nazev">{nazev}</span>
-      { isDone ||
+      { !isDone &&
         (<button className="ukol__akce" onClick={() => setIsDone(true)}>splnit</button>)
       }
     </li>
